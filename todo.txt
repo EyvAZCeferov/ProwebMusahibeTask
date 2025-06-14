@@ -1,0 +1,38 @@
+Proyektdə ediləcəklər
+1. APİ və admin panel qurulacaq
+2. APİ də limitlər yoxlanılacaq
+
+
+Əməliyyat ardıcıllığı
+1. User model
+2. Translations model
+3. Currency and Exchanges model
+4. Clockwork package download
+5. Permissions package download
+6. AtmBankNotes model
+7. Account model
+8. Transaction status, transactions and details model
+9. WithdrawalService class created
+10. Cache service class created
+11. TranslationService class created
+12. Added bootstap/app.php api.php in routes
+13. Create Mail Error (custom) class, change logging.php file and change bootstrap/app.php for all exception
+14. Sancum package download
+15. Role and Permission seeder created
+16. Admins seeder created
+17. Api - AuthController, WithdrawalController, TransactionController created
+18. Api - WithdrawalRequest created
+19. Api - routes creates
+22. Audit middleware created
+20. logging updated for audit
+21. Currency and Exchanges seeder created
+22. Audit Log model
+23. CreateDatabaseAuditChannel class audit log creating
+24. bootstap/app.php middleware setted
+25. 
+
+
+
+
+
+

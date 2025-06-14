@@ -1,0 +1,261 @@
+Api doc
+
+General
+    prefix: api/{lang}
+
+    Header
+        Accept: application/json
+        Accept-Language: az|ru|en fallback:az
+
+    languages: [az,ru,en]
+
+
+Fallback
+    api:
+        Response:
+            success:boolean
+            message: string
+    web:
+        Response: view
+
+register
+    method: post
+    Body:
+        name:required|min:3
+        email:required|unique
+        passowrd:required|Min reqs: 1bigchar 1smallchar 1integer 1symbol
+        password_confirmation: required|confirm_with_pass
+    Response:
+        message:string
+        user: resource
+        token:string
+
+login
+    method:post
+    Body:
+        email: required|exists
+        password: required
+    Response:
+        message:string
+        user:resource
+        token:string
+
+logout
+    method: post
+    Header:
+        Authorization: Bearer $token
+    Response:
+        message:string
+
+me:
+    method: get
+    Header:
+        Authorization: Bearer $token
+    Response:
+        user:resource
+
+currencies:
+    method: get
+    Header:
+        Authorization: Bearer $token
+    Response:
+        resource
+
+banknotes: Get banknotes only superadmin|manager
+    method: get
+    Header:
+        Authorization: Bearer $token
+    Body: For search
+        currency_id: integer
+        status: boolean
+        name: integer - banknote
+        With Transaction Search:
+            start_date : date xx.mm.yyyy
+            end_date : date xx.mm.yyyy
+            min_transactions_count: integer
+            min_quantity_dispensed: integer
+    Response:
+        resource
+
+banknotes: Create banknote only superadmin|manager
+    method: post
+    Header:
+        Authorization: Bearer $token
+    Body:
+        currency_id:integer
+        name:integer (banknote for example: 100, 200)
+        quantity: integer
+    Response:
+        resource
+
+banknotes: Update banknote only superadmin|manager
+    method: post
+    Header:
+        Authorization: Bearer $token
+    Body:
+        currency_id:integer
+        name:integer (banknote for example: 100, 200)
+        quantity: integer
+        status: boolean
+        _method: put|patch
+    Response:
+        resource
+
+banknotes/{id}: Get banknote only superadmin|manager
+    method: get
+    Header:
+        Authorization: Bearer $token
+    Response:
+        resource
+
+banknotes/{id}: Delete banknote only superadmin|manager
+    method: delete
+    Header:
+        Authorization: Bearer $token
+    Response:
+        message
+        status
+
+translations:
+    method: get
+    Header:
+        Authorization: Bearer $token
+    Response:
+        resource
+
+translations: Create translation only superadmin
+    method: post
+    Header:
+        Authorization: Bearer $token
+    Body:
+        key:string
+        az_value:string
+        ru_value:string|not required
+        en_value:string|not required
+    Response:
+        resource
+
+translations/{id}: Delete translation only superadmin
+    method: delete
+    Header:
+        Authorization: Bearer $token
+    Response:
+        message
+        status
+
+account: İstifadəçinin roluna görə (məs persondursa ancaq öz məlumatları lakin digər rollarda bütün məlumatlarda axtaracaq)
+    method: get
+    Header:
+        Authorization: Bearer $token
+    Body:
+        currency_id: integer
+        status: boolean
+        start_date: date
+        end_date: date
+        code: string
+        balance_min: numeric
+        balance_max: numeric
+
+account:
+    method: post
+    Header:
+        Authorization: Bearer $token
+    Body:
+        currency_id: integer
+        balance: numeric
+        status: boolean
+        user_id: integer -- only person | not required
+
+account/{id}: Get account
+    method: get
+    Header:
+        Authorization: Bearer $token
+    Response:
+        resource
+
+account/{id}: Update
+    method: post
+    Header:
+        Authorization: Bearer $token
+    Body:
+        balance: numeric
+        status: boolean
+        _method: put
+
+account/{id}: Delete account
+    method: delete
+    Header:
+        Authorization: Bearer $token
+    Response:
+        message
+        status
+
+withdraw:
+    method: post
+    Header:
+        Authorization: Bearer $token
+    Body:
+        account_id:integer
+        amount: numeric|min:1
+    Response:
+        message:string
+        transaction: model
+
+transfers/self:
+    method: post
+    Header:
+        Authorization: Bearer $token
+    Body:
+        from_account_id:integer
+        to_account_id:integer
+        amount: numeric|min:0.01
+    Response:
+        message:string
+        transactions: from and to account
+
+
+transfers/external:
+    method: post
+    Header:
+        Authorization: Bearer $token
+    Body:
+        from_account_id:integer
+        to_account_code:string
+        amount: numeric|min:0.01
+    Response:
+        message:string
+        transactions: from and to account
+
+transactions:
+    method: get
+    Header:
+        Authorization: Bearer $token
+    Body:
+        currency_id: integer
+        status_id: integer
+        start_date: date
+        end_date: date
+        user_id:integer
+        account_id:integer
+        status_id:integer
+        notes:string
+        amount_min:numeric
+        amount_max:numeric
+        banknote_id:integer
+        counterparty_account_id:integer
+
+transactions/{id}: Get transaction
+    method: get
+    Header:
+        Authorization: Bearer $token
+    Response:
+        resource
+
+transactions/{id}: Delete transaction
+    method: delete
+    Header:
+        Authorization: Bearer $token
+    Response:
+        message
+        status
+
