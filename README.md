@@ -275,3 +275,23 @@ Autentifikasiya tələb edən endpoint-lər üçün əlavə olaraq:
   - **Silmək:** `DELETE /api/translations/{id}`
 - **Header:** `Authorization: Bearer {token}` (**required**)
 - **Cavab:** Müvafiq tərcümə resursu, siyahısı və ya status mesajı.
+
+#### **Audit Loqlar**
+- **İcazə:** `role:superadmin`
+- **Endpoint-lər:** `apiResource` (yalnızca index və show)
+  - **Siyahı:** `GET /api/audit_logs`
+    - **Body** `user_id`,`ip_address`,`method`,`url`,`status_code`,`min_latency`,`max_latency`,`browser`,`platform`
+  - **Baxış:** `GET /api/audit_logs/{$audit_log}`
+  **Header:** `Authorization: Bearer {token}` (**required**)
+- **Cavab:** Müvafiq tərcümə resursu, siyahısı və ya status mesajı.
+
+#### **Test Girişlər**
+#####   **SuperAdmin**
+        `email`:system@proweb.az
+        `password`:system_proweb
+#####   **Person**
+        `email`:person1@proweb.az
+        `password`:person1_proweb
+#####   **Manager**
+        `email`:manager@proweb.az
+        `password`:manager_proweb
