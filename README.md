@@ -31,12 +31,16 @@ Bu sənəd, ATM idarəetmə sistemi üçün hazırlanmış REST API-nin texniki 
 
 ---
 
+**Layihənin production url-i**:
+    https://prowebmusahibe.globalmart.az
+
+
 ## 2. Layihənin Qurulması
 
 1.  **Layihəni klonlayın:**
     ```bash
-    git clone <repository_url>
-    cd <project_folder>
+    git clone https://github.com/EyvAZCeferov/ProwebMusahibeTask.git
+    cd ProwebMusahibeTask/
     ```
 2.  **Asılılıqları yükləyin:**
     ```bash

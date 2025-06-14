@@ -4,9 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\AtmBanknote;
 use App\Models\CurrencyExchanges\Currency;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class BankNotesSeeder extends Seeder
 {
@@ -15,7 +14,11 @@ class BankNotesSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('atm_banknotes')->truncate();
+        Schema::disableForeignKeyConstraints();
+
+        AtmBanknote::truncate();
+
+        Schema::enableForeignKeyConstraints();
 
         $banknotesByCurrency = [
             'AZN' => [
@@ -44,6 +47,7 @@ class BankNotesSeeder extends Seeder
                 continue;
             }
 
+
             $currency = $currencies[$currencyCode];
 
             foreach ($banknotes as $banknoteData) {
@@ -54,5 +58,6 @@ class BankNotesSeeder extends Seeder
                 ]);
             }
         }
+
     }
 }
