@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AccountController;
+use App\Http\Controllers\Api\AuditLogController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BankNotesController;
 use App\Http\Controllers\Api\CurrenciesController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\TransferController;
 use App\Http\Controllers\Api\TranslationsController;
 use App\Http\Controllers\System\FallbackController;
+use App\Models\AuditLogs;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class, 'register']);
@@ -35,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
             'show',
             'update',
         ]);
+        Route::apiResource('audit_logs', AuditLogController::class)->only(['index', 'show']);
     });
 
     Route::middleware('role:superadmin|manager')->group(function () {
