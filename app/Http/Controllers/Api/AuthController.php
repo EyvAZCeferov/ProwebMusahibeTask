@@ -19,6 +19,34 @@ class AuthController extends Controller
     {
         $this->translationService = $translationService;
     }
+    /**
+     * @OA\Post(
+     *     path="/api/register",
+     *     summary="Register a new user",
+     *     tags={"Auth"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"name","email","password"},
+     *             @OA\Property(property="name", type="string", example="Eyvaz"),
+     *             @OA\Property(property="email", type="string", example="eyvaz@mail.com"),
+     *             @OA\Property(property="password", type="string", format="password", example="secret123")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="User successfully registered",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string", example="İstifadəçi uğurla qeydiyyatdan keçdi."),
+     *             @OA\Property(property="user", type="object",
+     *                 @OA\Property(property="id", type="integer", example=1),
+     *                 @OA\Property(property="name", type="string", example="Eyvaz")
+     *             ),
+     *             @OA\Property(property="token", type="string", example="eyJ0eXAiOiJKV1QiLCJhbGci...")
+     *         )
+     *     )
+     * )
+     */
     public function register(RegisterRequest $request, RegisterAction $registerAction)
     {
         $data = $request->validated();
